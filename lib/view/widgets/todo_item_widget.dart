@@ -33,7 +33,7 @@ class TodoItemWidget extends StatelessWidget {
             final bloc = context.read<TodoListBloc>();
 
             if (!todo.isDone) {
-              // Show snackbar with completion time
+              // Task is being completed NOW → show snackbar with CURRENT TIME
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -43,7 +43,7 @@ class TodoItemWidget extends StatelessWidget {
               );
             }
 
-            // Toggle completion in BLoC
+            // Toggle task completion in BLoC
             bloc.add(ToggleTodo(todo.id));
           },
         ),

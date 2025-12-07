@@ -8,7 +8,6 @@ class TodoItemWidget extends StatelessWidget {
   final Todo todo;
   const TodoItemWidget({Key? key, required this.todo}) : super(key: key);
 
-  // Format nullable DateTime safely
   String _format(DateTime? date) {
     if (date == null) return "N/A";
     return date.toString().substring(0, 16);
@@ -33,7 +32,6 @@ class TodoItemWidget extends StatelessWidget {
             final bloc = context.read<TodoListBloc>();
 
             if (!todo.isDone) {
-              // Task is being completed NOW → show snackbar with CURRENT TIME
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(

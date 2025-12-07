@@ -3,7 +3,6 @@ class Todo {
   final String title;
   final String description;
   final bool isDone;
-
   final DateTime? createdAt;
   final DateTime? completedAt;
 

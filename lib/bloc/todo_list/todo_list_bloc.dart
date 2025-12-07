@@ -14,13 +14,11 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
       final updatedTodos = state.todos.map((todo) {
         if (todo.id == event.id) {
           if (!todo.isDone) {
-            // Mark as completed + save completion time
             return todo.copyWith(
               isDone: true,
               completedAt: DateTime.now(),
             );
           } else {
-            // Uncomplete the task
             return todo.copyWith(
               isDone: false,
               completedAt: null,

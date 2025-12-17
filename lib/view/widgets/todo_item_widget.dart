@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/todo_list/todo_list_bloc.dart';
-import '../../bloc/todo_list/todo_list_event.dart';
-import '../../domain/model/data_classes/todo.dart';
+import 'package:flutter_to_do_list/bloc/todo_list/todo_list_bloc.dart';
+import 'package:flutter_to_do_list/bloc/todo_list/todo_list_event.dart';
+import 'package:flutter_to_do_list/domain/model/data_classes/todo.dart';
 
 class TodoItemWidget extends StatelessWidget {
   final Todo todo;
-  const TodoItemWidget({Key? key, required this.todo}) : super(key: key);
+
+  const TodoItemWidget({
+    super.key,
+    required this.todo,
+  });
 
   String _format(DateTime? date) {
     if (date == null) return "N/A";
@@ -29,20 +33,15 @@ class TodoItemWidget extends StatelessWidget {
         leading: Checkbox(
           value: todo.isDone,
           onChanged: (_) {
-            final bloc = context.read<TodoListBloc>();
-
             if (!todo.isDone) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                    "Task completed at ${_format(DateTime.now())}",
-                  ),
+                  content: Text("Task completed at ${_format(DateTime.now())}"),
                 ),
               );
             }
 
-            // Toggle task completion in BLoC
-            bloc.add(ToggleTodo(todo.id));
+            context.read<TodoListBloc>().add(ToggleTodoEvent(todo.id));
           },
         ),
         trailing: Row(
@@ -64,7 +63,7 @@ class TodoItemWidget extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-                context.read<TodoListBloc>().add(DeleteTodo(todo.id));
+                context.read<TodoListBloc>().add(DeleteTodoEvent(todo.id));
               },
             ),
           ],
@@ -102,7 +101,7 @@ class TodoItemWidget extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               context.read<TodoListBloc>().add(
-                    EditTodo(
+                    EditTodoEvent(
                       id: todo.id,
                       newTitle: titleController.text,
                       newDescription: descController.text,

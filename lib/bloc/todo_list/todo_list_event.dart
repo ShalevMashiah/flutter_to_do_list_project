@@ -1,46 +1,32 @@
-import 'package:equatable/equatable.dart';
-import '../../domain/model/data_classes/todo.dart';
+import 'package:flutter_to_do_list/domain/model/data_classes/todo.dart';
 
-abstract class TodoListEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+abstract class TodoListEvent {
+  const TodoListEvent();
 }
 
-class AddTodo extends TodoListEvent {
+class AddTodoEvent extends TodoListEvent {
   final Todo todo;
-  AddTodo(this.todo);
-
-  @override
-  List<Object?> get props => [todo];
+  const AddTodoEvent(this.todo);
 }
 
-class ToggleTodo extends TodoListEvent {
+class ToggleTodoEvent extends TodoListEvent {
   final String id;
-  ToggleTodo(this.id);
-
-  @override
-  List<Object?> get props => [id];
+  const ToggleTodoEvent(this.id);
 }
 
-class DeleteTodo extends TodoListEvent {
+class DeleteTodoEvent extends TodoListEvent {
   final String id;
-  DeleteTodo(this.id);
-
-  @override
-  List<Object?> get props => [id];
+  const DeleteTodoEvent(this.id);
 }
 
-class EditTodo extends TodoListEvent {
+class EditTodoEvent extends TodoListEvent {
   final String id;
   final String newTitle;
   final String newDescription;
 
-  EditTodo({
+  const EditTodoEvent({
     required this.id,
     required this.newTitle,
     required this.newDescription,
   });
-
-  @override
-  List<Object?> get props => [id, newTitle, newDescription];
 }

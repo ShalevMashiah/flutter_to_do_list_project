@@ -1,34 +1,40 @@
-class Todo {
+import 'package:equatable/equatable.dart';
+
+class Todo extends Equatable {
   final String id;
   final String title;
   final String description;
-  final bool isDone;
-  final DateTime? createdAt;
+  final DateTime createdAt;
   final DateTime? completedAt;
+  final bool isDone;
 
-  Todo({
+  const Todo({
     required this.id,
     required this.title,
     required this.description,
-    this.isDone = false,
-    DateTime? createdAt,
+    required this.createdAt,
     this.completedAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+    this.isDone = false,
+  });
 
   Todo copyWith({
+    String? id,
     String? title,
     String? description,
-    bool? isDone,
     DateTime? createdAt,
     DateTime? completedAt,
+    bool? isDone,
   }) {
     return Todo(
-      id: id,
+      id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      isDone: isDone ?? this.isDone,
       createdAt: createdAt ?? this.createdAt,
       completedAt: completedAt,
+      isDone: isDone ?? this.isDone,
     );
   }
+
+  @override
+  List<Object?> get props => [id, title, description, createdAt, completedAt, isDone];
 }
